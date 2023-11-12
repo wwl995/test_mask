@@ -300,6 +300,7 @@ def main(args):
 
     if args.eval_only:
         model = Trainer.build_model(cfg)
+        torch.save(model.state_dict(), 'model.pth')
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
             cfg.MODEL.WEIGHTS, resume=args.resume
         )
@@ -312,7 +313,7 @@ def main(args):
 
     trainer = Trainer(cfg)
     trainer.resume_or_load(resume=args.resume)
-    torch.save(model.state_dict(), 'model.pth')
+    
 #     return trainer.train()
 
 
